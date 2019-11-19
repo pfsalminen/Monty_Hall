@@ -8,7 +8,7 @@ import random
 
 
 def run():
-	OPTS = [0, 1, 2]
+    OPTS = [0, 1, 2]
     total = 1000000
     fWins = 0
     sWins = 0

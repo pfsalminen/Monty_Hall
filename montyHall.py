@@ -36,6 +36,6 @@ for _ in range(total):
 		print("Error!")
 
 first_guess = float(fWins)*100 / float(total)
-second_guee = float(sWins)*100 / float(total)
+second_guess = float(sWins)*100 / float(total)
 
 print(f'First Guess: {first_guess:.2f}% \nSecond Guess: {second_guess:.2f}%')

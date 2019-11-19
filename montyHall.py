@@ -8,16 +8,16 @@ import random
 
 
 def run():
+	OPTS = [0, 1, 2]
     total = 1000000
     fWins = 0
     sWins = 0
-    opts = [0, 1, 2]
 
     for _ in range(total):
         answer = random.randint(0, 2)
         fGuess = random.randint(0, 2)
-        clue = [i for i in opts if i != fGuess and i != answer][0]
-        sGuess = [i for i in opts if i != fGuess and i != clue][0]
+        clue = [i for i in OPTS if i != fGuess and i != answer][0]
+        sGuess = [i for i in OPTS if i != fGuess and i != clue][0]
 
         if fGuess == answer:
             fWins += 1

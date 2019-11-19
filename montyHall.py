@@ -29,8 +29,8 @@ def run():
     first_guess = float(fWins) * 100 / float(total)
     second_guess = float(sWins) * 100 / float(total)
 
-    print(
-        f'First Guess: {first_guess:.2f}% \nSecond Guess: {second_guess:.2f}%')
+    print((f'First Guess: {first_guess:.2f}% '
+           f'\nSecond Guess: {second_guess:.2f}%'))
 
 
 if __name__ == '__main__':

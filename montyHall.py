@@ -1,22 +1,32 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
-#############################
-# Monty Hall Test Program	#
-# Author: Paul Salminen		#
-# Date: 11/12/2015			#
-#############################
+""" Monty Hall Test Program
+Author: Paul Salminen
+Date: 11/12/2015
+"""
 
 import random
 
 total = 1000000
 fWins = 0
 sWins = 0
+opts = [0,1,2]
 
-for x in range(total):
+for _ in range(total):
 	answer = random.randint(0,2)
 	fGuess = random.randint(0,2)
-	clue = [i for i in [0,1,2] if i!=fGuess and i!=answer][0]
-	sGuess = [i for i in [0,1,2] if i!=fGuess and i!=clue][0]
+	clue = [
+		i 
+		for i in opts
+		if i != fGuess 
+		and i!=answer
+	][0]
+	sGuess = [
+		i 
+		for i in opts 
+		if i != fGuess 
+		and i!=clue
+	][0]
 	
 	if fGuess == answer:
 		fWins+=1
@@ -25,4 +35,7 @@ for x in range(total):
 	else:
 		print("Error!")
 
-print 'First Guess: %.2f%% \nSecond Guess: %.2f%%' % ((float(fWins)*100 / float(total)), (float(sWins)*100 / float(total)))
+first_guess = float(fWins)*100 / float(total)
+second_guee = float(sWins)*100 / float(total)
+
+print(f'First Guess: {first_guess:.2f}% \nSecond Guess: {second_guess:.2f}%')

@@ -1,0 +1,6 @@
+2019-11-13 02:11:08
+BEGIN IF NOT EXISTS (SELECT * FROM JOB_Document WHERE Document_Path = ?) BEGIN INSERT INTO JOB_Document (JOB_ID,Document_Deleted,Document_Viewable,Document_Desc,Document_Title,Document_Path,ViewableInProjectPortal,RecordSource_FKey3) 			VALUES (?,0,1,?,?,?,1,'DASH Migration') END END
+INSERT INTO JOB_Folder (JOB_ID, FolderName, IsLocked) SELECT DISTINCT jd.JOB_ID, SUBSTRING(Document_Path,68,CHARINDEX('\',Document_Path,68)-68), 0 FROM JOB_Document jd WHERE jd.RecordSource_FKey3 = 'DASH Migration' AND CHARINDEX('\',Document_Path,68) <> 0 AND Document_Path NOT LIKE '%\MergeDocuments\%'
+UPDATE JOB_Document SET JOB_Folder_ID = jf.JOB_Folder_ID FROM JOB_Folder jf INNER JOIN JOB_Document jd on SUBSTRING(jd.Document_Path,68,CHARINDEX('\',jd.Document_Path,68)-68) = jf.FolderName AND jf.JOB_ID = jd.JOB_ID WHERE jd.RecordSource_FKey3 = 'DASH Migration' AND CHARINDEX('\',Document_Path,68) <> 0 AND Document_Path NOT LIKE '%\MergeDocuments\%'
+Run time: 1937.961299419403 seconds
+Run time: 32.29935499032339 minutes

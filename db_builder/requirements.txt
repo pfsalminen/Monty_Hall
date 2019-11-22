@@ -1,0 +1,6 @@
+pandas==0.23.4
+pyodbc==4.0.24
+sqlalchemy==1.2.17
+PySide2>=5.11
+qtawesome==0.5.3
+qtmodern==0.1.4

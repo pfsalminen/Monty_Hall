@@ -20,7 +20,6 @@ import qtawesome as qta
 from qtmodern.styles import dark
 import provision
 
-
 class Window(qtWidget.QMainWindow):
     """ Gui class for DB provisioner"""
 
@@ -41,32 +40,8 @@ class Window(qtWidget.QMainWindow):
 
         self.layout = qtWidget.QVBoxLayout()
 
-        self.layout.addLayout(self.create_row_one())
-        self.layout.addLayout(self.create_row_two())
-        self.layout.addWidget(QHLine(), 1, 0)
-
-        self.option_layout = qtWidget.QVBoxLayout()
-        self._add_options()
-        self.layout.addLayout(self.option_layout)
-
-        go_button = qtWidget.QPushButton("Go!")
-        go_button.clicked.connect(self.go)
-        self.layout.addWidget(go_button)
-
-        self.progress = qtWidget.QProgressBar()
-        self.progress.setValue(0)
-        self.layout.addWidget(self.progress)
-
-        self.info = qtWidget.QPlainTextEdit()
-        # self.info.setEnabled(False)
-        metrics = qtGui.QFontMetrics(FONT)
-        self.info.setTabStopWidth(4 * metrics.width('  '))
-        self.layout.addWidget(self.info)
-
-        widget = qtWidget.QWidget()
-        widget.setLayout(self.layout)
-
-    def create_row_one(self):
+        #############################################
+        # Row One
         row_one_layout = qtWidget.QHBoxLayout()
         row_one_layout.setSpacing(10)
         row_one_layout.setMargin(0)
@@ -90,7 +65,10 @@ class Window(qtWidget.QMainWindow):
         db_name.textEdited.connect(self._set_db)
         row_one_layout.addWidget(db_name)
 
-    def create_row_two(self):
+        self.layout.addLayout(row_one_layout)
+
+        #############################################
+        # Row Two
         row_two_layout = qtWidget.QHBoxLayout()
 
         master_name = qtWidget.QLineEdit()
@@ -113,6 +91,40 @@ class Window(qtWidget.QMainWindow):
 
         svr_box.activated[str].connect(self._set_server)
         row_two_layout.addWidget(svr_box)
+
+        self.layout.addLayout(row_two_layout)
+        self.layout.addWidget(QHLine(), 1, 0)
+
+        #############################################
+        # Options
+        self.option_layout = qtWidget.QVBoxLayout()
+        self._add_options()
+        self.layout.addLayout(self.option_layout)
+
+        #############################################
+        # Go Button
+        go_button = qtWidget.QPushButton("Go!")
+        go_button.clicked.connect(self.go)
+        self.layout.addWidget(go_button)
+
+        #############################################
+        # Progress bar
+        self.progress = qtWidget.QProgressBar()
+        completed = 0
+        self.progress.setValue(completed)
+        self.layout.addWidget(self.progress)
+
+        #############################################
+        # Status window
+        self.info = qtWidget.QPlainTextEdit()
+        # self.info.setEnabled(False)
+        metrics = qtGui.QFontMetrics(FONT)
+        self.info.setTabStopWidth(4 * metrics.width('  '))
+        self.layout.addWidget(self.info)
+
+        widget = qtWidget.QWidget()
+        widget.setLayout(self.layout)
+        self.setCentralWidget(widget)
 
     def _set_db(self, db: str) -> None:
         self.provision.db = db.upper()
@@ -390,7 +402,11 @@ class Window(qtWidget.QMainWindow):
     def go(self) -> None:
         """ Runs the program. Responds to Go button"""
 
-        print('\n'.join(k for k, v in self.__dict__ if not callable(v)))
+        print('\n'.join(
+            k
+            for k, v in self.__dict__.items()
+            if not callable(v)
+        ))
 
         self.info.clear()
 
